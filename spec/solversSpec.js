@@ -10,8 +10,7 @@ describe('solvers', function() {
           return memo + _.reduce(row, function(memo, col) {
             return memo + col;
           }, 0);
-        }, 0);
-
+        }, 0);        
         expect(solutionBoard.get('n')).to.equal(n);
         expect(numPieces).to.equal(n);
         expect(solutionBoard.hasAnyRooksConflicts()).to.be.equal(false);
@@ -26,7 +25,6 @@ describe('solvers', function() {
       _.range(1, 9).map(function(n) {
         var solutionCount = countNRooksSolutions(n);
         var expectedSolutionCount = [1, 1, 2, 6, 24, 120, 720, 5040, 40320][n];
-
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
     });

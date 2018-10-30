@@ -11,20 +11,50 @@
 // take a look at solversSpec.js to see what the tests are expecting
 
 
-// return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
+// return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such tha  t none of them can attack each other
 
-
+  
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+  var solution = new Board({n: n}); 
+  var numRock = n;
+  var colIndex = 0;
+  for (var i = 0; i < solution.rows().length; i++) {
+    if(numRock === 0 ){
+      return solution.rows();
+    } 
+    if (!solution.hasRowConflictAt(i) && !solution.hasColConflictAt(colIndex)) {
+      solution.togglePiece(i,colIndex);
+      numRock--;
+      colIndex++;
 
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-  return solution;
+    } 
+  }
+  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution.rows()));
+  return solution.rows();
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  var countSolutions = new Board({n:n})
+  var counter = 0;
+  var numRocks = n;
+  var colIndex = 0
+  for (var i = 0; i < countSolutions.rows().length; i++) {
+    if(numRocks === 0){
+
+      counter++;
+      numRocks = n;
+      i = 0;
+    }
+    if (!countSolutions.hasRowConflictAt(i) && !countSolutions.hasColConflictAt(colIndex)) {
+      countSolutions.togglePiece(i,colIndex);
+      numRocks--;
+      colIndex++;
+
+    } 
+  }
+  var solutionCount = counter; 
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
